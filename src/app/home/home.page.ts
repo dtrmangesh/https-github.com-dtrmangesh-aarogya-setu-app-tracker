@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DiagnosticService } from '../services/diagnostic.service';
+import { Router } from '@angular/router';
 interface DeviceHardware {
   isBletoothTurnOn: boolean,
   isGPSOn:boolean
@@ -16,7 +17,7 @@ export class HomePage {
     isBletoothTurnOn: false,
     isGPSOn:false
   };
-  constructor(private diagnostic: DiagnosticService) {
+  constructor(private diagnostic: DiagnosticService,  private readonly router: Router) {
   }
 
   cardTitles = ['Confirmed cases', 'Active cases', 'Recovered cases', 'Deceased cases'];
@@ -38,5 +39,9 @@ export class HomePage {
     console.log('bluetooth',this.hardwareAvailiability.isBletoothTurnOn);
     this.hardwareAvailiability.isGPSOn = await this.diagnostic.checkGPSAvailability();
     console.log('GPS',this.hardwareAvailiability.isGPSOn);
+  }
+
+  onLogout() {
+    this.router.navigate(['/login']);
   }
 }
