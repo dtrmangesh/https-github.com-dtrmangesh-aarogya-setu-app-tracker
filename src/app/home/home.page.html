@@ -1,9 +1,45 @@
+<ion-header no-border>
+  <ion-toolbar class="toolbar" no-border>
+    <ion-title class="title">
+      Welcome {{userName}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-img class="profile-icon" src="assets/images/log-out.svg">
+      </ion-img>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-
-<ion-content>
-  <div id="container">
-   <div> Your GPS state : {{hardwareAvailiability.isGPSOn}}</div>
-   <div> Your GPS state : {{hardwareAvailiability.isBletoothTurnOn}}</div>
-
+<ion-content class="page">
+  <ion-slides class="media-slides" [options]="sliderOpts" #slider>
+    <ion-slide *ngFor="let img of sliderImages; let i = index">
+      <ion-img class="slider-img" [src]="img"></ion-img>
+    </ion-slide>
+  </ion-slides>
+  <div class="search-container">
+    <div class="statistics-title">Covid-19 Statistics</div>
+    <div class="menu">
+      <ion-card class="menu-card" *ngFor="let title of cardTitles; let i = index">
+        <div>{{title}}</div>
+        <div>00</div>
+      </ion-card>
+    </div>
   </div>
+  <ion-footer class="footer-container" lines="none">
+    <ion-item lines="none" class="settings-first-item">
+      <ion-label class="services-label">Device Settings</ion-label>
+      <div class="device-setting-title">Manage Settings</div>
+    </ion-item>
+    <div class="bottom-border"></div>
+    <ion-item lines="none" class="settings-items">
+      <ion-label class="services-label">Location</ion-label>
+      <ion-toggle class="toggle-icon toggle-inner" checked="false">
+      </ion-toggle>
+    </ion-item>
+    <div class="bottom-border"></div>
+    <ion-item lines="none" class="settings-items">
+      <ion-label class="services-label">Bluetooth</ion-label>
+      <ion-toggle class="toggle-icon toggle-inner"></ion-toggle>
+    </ion-item>
+  </ion-footer>
 </ion-content>
