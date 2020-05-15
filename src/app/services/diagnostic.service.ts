@@ -9,7 +9,7 @@ export class DiagnosticService {
   constructor(private diagnostic: Diagnostic) { }
 
   async checkGPSAvailability() {
-    var checkGPSService;
+    let checkGPSService;
   await  this.diagnostic.isGpsLocationAvailable().then((state) => {
       checkGPSService = true;
   }).catch(e => console.log(e));
@@ -20,11 +20,10 @@ export class DiagnosticService {
   }
 
   async checkBluetoothAvailability()  {
-    var checkBluetooth;
+    let checkBluetooth;
    await this.diagnostic.getBluetoothState()
      .then((state) => {
-        
-       if (state == this.diagnostic.bluetoothState.POWERED_ON) {
+       if (state === this.diagnostic.bluetoothState.POWERED_ON) {
         checkBluetooth = true
        } else {
          checkBluetooth = false
