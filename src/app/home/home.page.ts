@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { DiagnosticService } from '../services/diagnostic.service';
 import { Router } from '@angular/router';
+import { AppAvailabilityService } from '../services/app-availability.service';
 interface DeviceHardware {
   isBletoothTurnOn: boolean,
   isGPSOn:boolean
@@ -12,12 +14,15 @@ interface DeviceHardware {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  isAppInstalled: any;
   hardwareAvailiability: DeviceHardware = {
     isBletoothTurnOn: false,
     isGPSOn:false
   };
-  constructor(private diagnostic: DiagnosticService,  private readonly router: Router) {
+  constructor(private diagnostic: DiagnosticService,
+    private readonly router: Router,
+    private openNativeSettings: OpenNativeSettings,
+    private appAvailable: AppAvailabilityService) {
   }
 
   cardTitles = ['Confirmed cases', 'Active cases', 'Recovered cases', 'Deceased cases'];
@@ -39,9 +44,17 @@ export class HomePage {
     console.log('bluetooth',this.hardwareAvailiability.isBletoothTurnOn);
     this.hardwareAvailiability.isGPSOn = await this.diagnostic.checkGPSAvailability();
     console.log('GPS',this.hardwareAvailiability.isGPSOn);
+
+    this.isAppInstalled = await this.appAvailable.onCheckAppAvailability();
+    console.log('App Availability', this.isAppInstalled);
+
   }
 
   onLogout() {
     this.router.navigate(['/login']);
+  }
+
+  onManageSettings() {
+    this.openNativeSettings.open('settings');
   }
 }
