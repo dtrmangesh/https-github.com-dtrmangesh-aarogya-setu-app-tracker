@@ -33,13 +33,13 @@
     <div class="bottom-border"></div>
     <ion-item lines="none" class="settings-items">
       <ion-label class="services-label">Location</ion-label>
-      <ion-toggle class="toggle-icon toggle-inner" checked="false">
+      <ion-toggle class="toggle-icon toggle-inner" [(ngModel)]="hardwareAvailiability.isGPSOn" checked="false">
       </ion-toggle>
     </ion-item>
     <div class="bottom-border"></div>
     <ion-item lines="none" class="settings-items">
       <ion-label class="services-label">Bluetooth</ion-label>
-      <ion-toggle class="toggle-icon toggle-inner"></ion-toggle>
+      <ion-toggle class="toggle-icon toggle-inner" [(ngModel)]="hardwareAvailiability.isBletoothTurnOn"></ion-toggle>
     </ion-item>
   </ion-footer>
 </ion-content>
