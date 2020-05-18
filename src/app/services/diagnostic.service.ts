@@ -10,17 +10,22 @@ export class DiagnosticService {
 
   async checkGPSAvailability() {
     let checkGPSService;
-  await  this.diagnostic.isGpsLocationAvailable().then((state) => {
-      checkGPSService = true;
-  }).catch(e => console.log(e));
-    if (checkGPSService !== true) {
-      checkGPSService= false
-    }
+    this.diagnostic.requestLocationAuthorization();
+    await this.diagnostic.isLocationAvailable().then(state => {
+      if (state) {
+        checkGPSService = true;
+        console.log(state, "available")
+      } else {
+        checkGPSService= false
+      }
+    }).catch(e => console.log(e));
+   
     return checkGPSService;
   }
 
   async checkBluetoothAvailability()  {
     let checkBluetooth;
+    this.diagnostic.requestBluetoothAuthorization();
    await this.diagnostic.getBluetoothState()
      .then((state) => {
        if (state === this.diagnostic.bluetoothState.POWERED_ON) {
