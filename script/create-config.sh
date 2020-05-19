@@ -1,0 +1,1 @@
+ npx envsub src/environments/build.config.ts src/environments/environment.ts 
