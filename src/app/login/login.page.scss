@@ -98,3 +98,20 @@
   color: #0066b3;
   text-align: center;
 }
+
+.password-text {
+  position: absolute;
+  right: 29px;
+  top: 33px;
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  text-align: right;
+  color: var(--color-black);
+  z-index: 9;
+}
+
+.ios-showHidePassword-label {
+  top: 47px;
+}
