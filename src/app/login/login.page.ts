@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import {FirebaseService} from '../services/firebase.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,10 +17,14 @@ export class LoginPage implements OnInit {
   user: string;
 
   constructor(private readonly formBuilder: FormBuilder,
-    private readonly router: Router) { }
+    private readonly router: Router,
+    private readonly firebase :FirebaseService  ) { }
 
   ngOnInit() {
     this.initializeLoginForm();
+    // this.firebase.createSong();
+    var userInfo = this.firebase.readDatabse().valueChanges();
+    userInfo.subscribe(res =>console.log(res))
   }
 
   initializeLoginForm() {

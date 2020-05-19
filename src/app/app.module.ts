@@ -12,11 +12,15 @@ import { DiagnosticService } from './services/diagnostic.service';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { AppAvailability } from '@ionic-native/app-availability/ngx';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
+import {config} from '../environments/environment'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -24,6 +28,7 @@ import { AppAvailability } from '@ionic-native/app-availability/ngx';
     DiagnosticService,
     OpenNativeSettings,
     AppAvailability,
+    AngularFirestore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
