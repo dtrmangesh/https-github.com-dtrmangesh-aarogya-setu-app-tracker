@@ -7,3 +7,6 @@ export const config = {
     messagingSenderId: '${messagingSenderId}',
     appId: '${appId}'
   };
+  export const environment = {
+    production: true
+  };
