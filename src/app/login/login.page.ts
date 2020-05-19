@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {FirebaseService} from '../services/firebase.service'
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,10 +16,14 @@ export class LoginPage implements OnInit {
 
   public loginForm: FormGroup;
   user: string;
+  passwordType = 'password';
+  passwordText = 'SHOW';
+  isIOS = false;
 
   constructor(private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly firebase :FirebaseService  ) { }
+    private readonly firebase :FirebaseService,
+    public platform: Platform) { }
 
   ngOnInit() {
     this.initializeLoginForm();
@@ -38,7 +43,20 @@ export class LoginPage implements OnInit {
           ),
         ],
       ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+        ],
+      ],
     });
+    this.isIOS = this.platform.is('ios');
+  }
+
+  hideShowPassword(): void {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordText = this.passwordText === 'SHOW' ? 'HIDE' : 'SHOW';
   }
 
   submitLoginDetails() {
