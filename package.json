@@ -35,7 +35,7 @@
         "cordova.plugins.diagnostic": "^3.9.2",
         "firebase": "^7.14.4",
         "node": "^12.0.0",
-        "rxjs": "~6.5.1",
+        "rxjs": "^6.5.5",
         "tslib": "^1.10.0",
         "zone.js": "~0.10.2",
         "zoo": "^0.1.10"
@@ -76,7 +76,9 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-ionic-webview": {},
+            "cordova-plugin-ionic-webview": {
+                "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+            },
             "cordova-plugin-ionic-keyboard": {},
             "cordova.plugins.diagnostic": {},
             "cordova-open-native-settings": {},

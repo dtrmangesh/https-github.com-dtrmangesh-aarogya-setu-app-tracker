@@ -4,9 +4,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import {FirebaseService} from '../services/firebase.service'
 import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,16 +21,16 @@ export class LoginPage implements OnInit {
   passwordText = 'SHOW';
   isIOS = false;
 
+  userData;
+  userCollection
   constructor(private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly firebase :FirebaseService,
     public platform: Platform) { }
 
-  ngOnInit() {
+   ngOnInit() {
     this.initializeLoginForm();
-    // this.firebase.createSong();
-    var userInfo = this.firebase.readDatabse().valueChanges();
-    userInfo.subscribe(res =>console.log(res))
+    this.userCollection= this.firebase.readDatabse().valueChanges();
   }
 
   initializeLoginForm() {
@@ -61,6 +62,25 @@ export class LoginPage implements OnInit {
 
   submitLoginDetails() {
     this.user = this.loginForm.get('email').value;
-    this.router.navigate(['/home']);
+    this.checkUser(this.user);
+    
+  }
+
+  checkUser(userName) {
+    
+    this.userCollection.subscribe( (res: any) => {
+      res.forEach(element => {
+     if (element.email == userName) {
+       let navigationExtras: NavigationExtras = {
+        queryParams: {
+          userId: JSON.stringify(element.id)
+        }
+       };
+       
+       this.router.navigate(['/home'],navigationExtras);
+       this.userData = element;
+     }
+    });
+    })
   }
 }
