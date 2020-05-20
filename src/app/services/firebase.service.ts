@@ -4,7 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import {map,take}from "rxjs/operators"
 import { Observable } from 'rxjs';
 import { async } from 'q';
-import {Hardware} from '../interface/hardware.interface'
+import {HardwareSoftwareAvailability} from '../interface/hardware.interface'
 @Injectable({
   providedIn: 'root'
 })
@@ -13,21 +13,9 @@ export class FirebaseService {
   constructor(private firestore: AngularFirestore,public afDatabase: AngularFireDatabase) { 
     this.collection = this.firestore.collection('user');
   }
-  pickEyeColor(){
-  var data= this.afDatabase.list('/user/',
-
-    ref => ref.orderByChild('name').equalTo("mangesh"));
+ 
   
-    data.valueChanges().subscribe(
-  
-      (datas) => { console.log("datas", datas) }
-    );
-
-  
-
-  }
-  
-  createSong(): Promise<void> {
+  createEmployeeData(): Promise<void> {
     const id = this.firestore.createId();
   
     return this.firestore.doc(`user/${id}`).set({
@@ -51,7 +39,6 @@ export class FirebaseService {
     return this.firestore.collection('user');
   }
   readSingleDatabse(id: string): Observable<any> {
-    debugger
     return this.collection.doc(id).valueChanges().pipe(
       take(1),
       map((note:any) => {
@@ -63,7 +50,7 @@ export class FirebaseService {
   }
   
   async getUser(userName) {
-    debugger
+    
     var userData;
     var userCollection =  this.firestore.collection('user').valueChanges();
   
@@ -77,7 +64,7 @@ export class FirebaseService {
     })
     return userData;
   }
-  updateUserHardware(userId, userHardware:Hardware): Promise<any> {
+  updateUserHardware(userId, userHardware:HardwareSoftwareAvailability): Promise<any> {
     
     return this.collection.doc(userId).update({
       appAvailability: userHardware.appAvailability,
