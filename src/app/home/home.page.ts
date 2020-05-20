@@ -3,10 +3,9 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { DiagnosticService } from '../services/diagnostic.service';
 import { Router } from '@angular/router';
 import { AppAvailabilityService } from '../services/app-availability.service';
-interface DeviceHardware {
-  isBletoothTurnOn: boolean,
-  isGPSOn:boolean
-}
+import { Hardware } from '../interface/hardware.interface';
+import { FirebaseService } from '../services/firebase.service';
+
 
 @Component({
   selector: 'app-home',
@@ -15,14 +14,17 @@ interface DeviceHardware {
 })
 export class HomePage {
   isAppInstalled: any;
-  hardwareAvailiability: DeviceHardware = {
-    isBletoothTurnOn: false,
-    isGPSOn:false
+  hardwareAvailiability: Hardware = {
+    appAvailability: false,
+    locationStatus: false,
+    bluetoothStatus:false
+    
   };
   constructor(private diagnostic: DiagnosticService,
     private readonly router: Router,
     private openNativeSettings: OpenNativeSettings,
-    private appAvailable: AppAvailabilityService) {
+    private appAvailable: AppAvailabilityService,
+    private firebaseService:FirebaseService) {
   }
 
   cardTitles = ['Confirmed cases', 'Active cases', 'Recovered cases', 'Deceased cases'];
@@ -40,16 +42,21 @@ export class HomePage {
   };
 
   async ionViewWillEnter() {
-    this.hardwareAvailiability.isBletoothTurnOn =  await  this.diagnostic.checkBluetoothAvailability();
-    console.log('bluetooth',this.hardwareAvailiability.isBletoothTurnOn);
-    this.hardwareAvailiability.isGPSOn = await this.diagnostic.checkGPSAvailability();
-    console.log('GPS',this.hardwareAvailiability.isGPSOn);
+    this.hardwareAvailiability.bluetoothStatus =  await  this.diagnostic.checkBluetoothAvailability();
+    console.log('bluetooth',this.hardwareAvailiability.bluetoothStatus);
+    this.hardwareAvailiability.locationStatus = await this.diagnostic.checkGPSAvailability();
+    console.log('GPS',this.hardwareAvailiability.locationStatus);
 
-    this.isAppInstalled = await this.appAvailable.onCheckAppAvailability();
-    console.log('App Availability', this.isAppInstalled);
-
+    this.hardwareAvailiability.appAvailability = await this.appAvailable.onCheckAppAvailability();
+    console.log('App Availability', this.hardwareAvailiability.appAvailability);
+    var userHardware :Hardware = {
+      appAvailability: this.hardwareAvailiability.appAvailability,
+      bluetoothStatus: this.hardwareAvailiability.bluetoothStatus,
+      locationStatus:this.hardwareAvailiability.locationStatus
+    }
+    this.firebaseService.updateUserHardware("fUCxVINMfMaiNeB996Un",userHardware);
   }
-
+  
   onLogout() {
     this.router.navigate(['/login']);
   }
