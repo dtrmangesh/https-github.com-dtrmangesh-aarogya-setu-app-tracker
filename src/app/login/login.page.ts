@@ -4,7 +4,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import {FirebaseService} from '../services/firebase.service'
 import { Platform } from '@ionic/angular';
 
@@ -67,12 +67,17 @@ export class LoginPage implements OnInit {
   }
 
   checkUser(userName) {
-    console.log(userName)
+    
     this.userCollection.subscribe( (res: any) => {
       res.forEach(element => {
      if (element.email == userName) {
-       console.log(element);
-       this.router.navigate(['/home']);
+       let navigationExtras: NavigationExtras = {
+        queryParams: {
+          userId: JSON.stringify(element.id)
+        }
+       };
+       
+       this.router.navigate(['/home'],navigationExtras);
        this.userData = element;
      }
     });
