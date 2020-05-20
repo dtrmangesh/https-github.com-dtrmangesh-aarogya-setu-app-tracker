@@ -73,8 +73,9 @@ export class LoginPage implements OnInit {
      if (element.email == userName) {
        let navigationExtras: NavigationExtras = {
         queryParams: {
-          userData: JSON.stringify(element)
-        }
+           userData: JSON.stringify(element)
+         }
+         
        };
        
        this.router.navigate(['/home'],navigationExtras);
