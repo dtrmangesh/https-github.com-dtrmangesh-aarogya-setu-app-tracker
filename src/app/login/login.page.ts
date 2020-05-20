@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
      if (element.email == userName) {
        let navigationExtras: NavigationExtras = {
         queryParams: {
-          userId: JSON.stringify(element.id)
+          userData: JSON.stringify(element)
         }
        };
        
