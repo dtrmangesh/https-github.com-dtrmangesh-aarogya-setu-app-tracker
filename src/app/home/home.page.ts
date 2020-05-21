@@ -16,6 +16,13 @@ import { CoronaStatisticsService } from '../services/corona-statistics.service';
 export class HomePage {
   isAppInstalled: any;
   statisticsData =[];
+  public config = {
+    animation: 'count',
+    format: 'd',
+    theme: 'minima',
+    value: 0,
+    auto: true,
+  }
   hardwareSoftwareAvailability: HardwareSoftwareAvailability = {
     appAvailability: false,
     locationStatus: false,

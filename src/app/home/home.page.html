@@ -21,7 +21,7 @@
     <div class="menu">
       <ion-card class="menu-card" *ngFor="let title of cardTitles; let i = index">
         <div>{{title}}</div>
-        <div>{{statisticsData[i]}}</div>
+        <ng2-odometer [number]="statisticsData[i]" [config]="config"></ng2-odometer>
       </ion-card>
     </div>
   </div>
