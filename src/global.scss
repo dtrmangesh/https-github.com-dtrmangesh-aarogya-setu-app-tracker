@@ -24,3 +24,18 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+/* Custom css*/
+
+.toast-msg {
+  --border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-align: center;
+  --color: #fcfcfc;
+  text-transform: uppercase;
+}

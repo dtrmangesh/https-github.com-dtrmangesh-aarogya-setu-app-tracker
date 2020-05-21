@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import {FirebaseService} from '../services/firebase.service'
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,17 +16,18 @@ import { Platform } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   public loginForm: FormGroup;
-  user: string;
   passwordType = 'password';
   passwordText = 'SHOW';
   isIOS = false;
 
   userData;
-  userCollection
+  userCollection;
   constructor(private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly firebase :FirebaseService,
-    public platform: Platform) { }
+    public platform: Platform,
+    private toastController: ToastController,
+    ) { }
 
    ngOnInit() {
     this.initializeLoginForm();
@@ -61,26 +62,41 @@ export class LoginPage implements OnInit {
   }
 
   submitLoginDetails() {
-    this.user = this.loginForm.get('email').value;
-    this.checkUser(this.user);
-    
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+    this.checkUser(email, password);
   }
 
-  checkUser(userName) {
-    
+  checkUser(userName, password) {
     this.userCollection.subscribe( (res: any) => {
       res.forEach(element => {
-     if (element.email == userName) {
-       let navigationExtras: NavigationExtras = {
-        queryParams: {
-          userData: JSON.stringify(element)
-        }
-       };
-       
-       this.router.navigate(['/home'],navigationExtras);
+     if (element.email === userName && element.password === password) {
        this.userData = element;
      }
     });
+
+    if (this.userData) {
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          userData: JSON.stringify(this.userData)
+        }
+       };
+       this.router.navigate(['/home'],navigationExtras);
+    } else {
+      console.log('Invalid');
+      this.presentToast('Invalid Credentials');
+    }
     })
+  }
+
+  async presentToast(responseText: string) {
+    const toast = await this.toastController.create({
+      message: responseText,
+      duration: 3000,
+      position: 'top',
+      color: 'danger',
+      cssClass: 'toast-msg',
+    });
+    toast.present();
   }
 }
