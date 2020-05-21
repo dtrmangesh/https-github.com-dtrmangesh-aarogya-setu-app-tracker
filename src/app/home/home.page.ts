@@ -16,6 +16,15 @@ import { CoronaStatisticsService } from '../services/corona-statistics.service';
 export class HomePage {
   isAppInstalled: any;
   statisticsData =[];
+  // tslint:disable-next-line:variable-name
+  random_number = 299792;
+  public config = {
+    animation: 'count',
+    format: 'd',
+    theme: 'minima',
+    value: 50,
+    auto: true,
+  }
   hardwareSoftwareAvailability: HardwareSoftwareAvailability = {
     appAvailability: false,
     locationStatus: false,
