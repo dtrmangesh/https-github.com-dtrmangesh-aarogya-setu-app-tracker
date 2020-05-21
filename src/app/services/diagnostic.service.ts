@@ -14,12 +14,11 @@ export class DiagnosticService {
     await this.diagnostic.isLocationAvailable().then(state => {
       if (state) {
         checkGPSService = true;
-        console.log(state, "available")
+        console.log(state, 'available')
       } else {
         checkGPSService= false
       }
     }).catch(e => console.log(e));
-   
     return checkGPSService;
   }
 
