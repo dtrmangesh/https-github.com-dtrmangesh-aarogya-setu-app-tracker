@@ -20,7 +20,7 @@ export class HomePage {
     animation: 'count',
     format: 'd',
     theme: 'minima',
-    value: 50,
+    value: 0,
     auto: true,
   }
   hardwareSoftwareAvailability: HardwareSoftwareAvailability = {
