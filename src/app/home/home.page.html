@@ -12,7 +12,7 @@
 
 <ion-content class="page">
   <ion-item *ngIf="!hardwareSoftwareAvailability.appAvailability" lines="none" class="top-msg">
-    <div class="top-msg-styles">  Dear user, please install and use
+    <div class="top-msg-styles">  Dear {{userNamennjefjjffz}}, please install and use
       <span class="app-name-link" (click)="openPlayStore()">
         Aarogya Setu App</span> for the tracking of covid 19</div>
   </ion-item>
@@ -20,17 +20,16 @@
   <div class="device-settings-container" no-lines>
     <ion-item lines="none" class="settings-items">
       <ion-label class="settings-label">Location Status</ion-label>
-        <div *ngIf="hardwareSoftwareAvailability.locationStatus">ON</div>
-        <div *ngIf="!hardwareSoftwareAvailability.locationStatus">OFF</div>
+        <div>{{hardwareSoftwareAvailability.locationStatus? 'ON' : 'OFF'}}</div>
     </ion-item>
     <div class="bottom-border"></div>
     <ion-item lines="none" class="settings-items">
       <ion-label class="settings-label">Bluetooth Status</ion-label>
-      <div *ngIf="hardwareSoftwareAvailability.bluetoothStatus">ON</div>
-      <div *ngIf="!hardwareSoftwareAvailability.bluetoothStatus">OFF</div>
+      <div>{{hardwareSoftwareAvailability.bluetoothStatus? 'ON' : 'OFF'}}</div>
+
     </ion-item>
   </div>
-  <div class="statistics-title">Covid 19 - Stats</div>
+  <div class="statistics-title">Covid 19 - Statistics</div>
   <div class="search-container">
     <div class="menu">
       <ion-card class="menu-card" *ngFor="let title of cardTitles; let i = index">
