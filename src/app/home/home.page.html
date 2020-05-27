@@ -19,13 +19,13 @@
   <div class="settings-heading">Device Settings</div>
   <div class="device-settings-container" no-lines>
     <ion-item lines="none" class="settings-items">
-      <ion-label class="settings-label">Location</ion-label>
+      <ion-label class="settings-label">Location Status</ion-label>
         <div *ngIf="hardwareSoftwareAvailability.locationStatus">ON</div>
         <div *ngIf="!hardwareSoftwareAvailability.locationStatus">OFF</div>
     </ion-item>
     <div class="bottom-border"></div>
     <ion-item lines="none" class="settings-items">
-      <ion-label class="settings-label">Bluetooth</ion-label>
+      <ion-label class="settings-label">Bluetooth Status</ion-label>
       <div *ngIf="hardwareSoftwareAvailability.bluetoothStatus">ON</div>
       <div *ngIf="!hardwareSoftwareAvailability.bluetoothStatus">OFF</div>
     </ion-item>
