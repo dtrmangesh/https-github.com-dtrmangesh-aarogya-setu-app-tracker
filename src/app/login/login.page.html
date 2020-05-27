@@ -1,47 +1,53 @@
+<ion-header no-border>
+  <ion-toolbar class="toolbar" no-border>
+    <img
+      class="logo-mobiquity"
+      alt="mobiquity"
+      src="assets/images/mobiquitylogo.png"
+    />
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <div class="logo-img">
-    <img alt="logo" src="assets/images/logo.png" />
-  </div>
   <p class="app-title">
-    AAROGYA SETU APP TRACKER
+    Aarogya Setu App Tracker
   </p>
+  <div class="logo-img">
+    <img alt="tracking" src="assets/images/tracking.png" />
+  </div>
   <form [formGroup]="loginForm" (submit)="submitLoginDetails()">
-    <div class="all-fields">
-      <div class="container-fields">
-        <ion-item lines="none" class="login-item">
-          <ion-label position="floating" class="login-label">
-            EMAIL ADDRESS</ion-label
-          >
-          <ion-input
-            class="login-input"
-            formControlName="email"
-            type="email"
-          ></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="login-item">
-            <ion-label position="floating" class="login-label">
-              PASSWORD</ion-label
-            >
-            <ion-input
-              #passwordField
-              class="login-input"
-              formControlName="password"
-              [type]="passwordType"
-            ></ion-input>
-            <label *ngIf="loginForm.controls.password.value.length > 0" class="password-text" [class.ios-showHidePassword-label]="isIOS" (click)="hideShowPassword()" (click)="passwordField.setFocus()">{{ passwordText }}</label>
-        </ion-item>
-      </div>
-    </div>
     <div class="container-fields">
-      <div class="sign-in-btn-container">
-        <ion-button
-          color="orange"
-          class="sing-in-btn"
-          [disabled]="!loginForm.valid"
-          type="submit"
-          >SIGN IN</ion-button
+      <ion-label class="login-label">Email Address</ion-label>
+      <ion-item lines="none" class="login-item">
+        <ion-input
+          class="login-input"
+          formControlName="email"
+          type="email"
+        ></ion-input>
+      </ion-item>
+      <ion-label class="login-label">Password</ion-label>
+      <ion-item lines="none" class="login-item">
+        <ion-input
+          #passwordField
+          class="login-input"
+          formControlName="password"
+          [type]="passwordType"
+        ></ion-input>
+        <label
+          *ngIf="loginForm.controls.password.value.length > 0"
+          class="password-text"
+          [class.ios-showHidePassword-label]="isIOS"
+          (click)="hideShowPassword()"
+          (click)="passwordField.setFocus()"
+          >{{ passwordText }}</label
         >
-      </div>
+      </ion-item>
     </div>
+    <ion-button
+      expand="full"
+      class="complete-checkout-button"
+      [disabled]="!loginForm.valid"
+      type="submit"
+      >SIGN IN
+    </ion-button>
   </form>
 </ion-content>
