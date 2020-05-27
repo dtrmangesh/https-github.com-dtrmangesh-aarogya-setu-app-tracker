@@ -4,42 +4,50 @@
       Welcome {{userName}}
     </ion-title>
     <ion-buttons slot="end" (click)="onLogout()">
-      <ion-img class="logout-icon" src="assets/images/log-out.svg">
+      <ion-img class="logout-icon" src="assets/images/logout_6.png">
       </ion-img>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="page">
-  <ion-slides class="media-slides" [options]="sliderOpts" #slider>
-    <ion-slide *ngFor="let img of sliderImages; let i = index">
-      <ion-img class="slider-img" [src]="img"></ion-img>
-    </ion-slide>
-  </ion-slides>
+  <ion-item *ngIf="!hardwareSoftwareAvailability.appAvailability" lines="none" class="top-msg">
+    <div class="top-msg-styles">  Dear {{userNamennjefjjffz}}, please install and use
+      <span class="app-name-link" (click)="openPlayStore()">
+        Aarogya Setu App</span> for the tracking of covid 19</div>
+  </ion-item>
+  <div class="settings-heading">Device Settings</div>
+  <div class="device-settings-container" no-lines>
+    <ion-item lines="none" class="settings-items">
+      <ion-label class="settings-label">Location Status</ion-label>
+        <div>{{hardwareSoftwareAvailability.locationStatus? 'ON' : 'OFF'}}</div>
+    </ion-item>
+    <div class="bottom-border"></div>
+    <ion-item lines="none" class="settings-items">
+      <ion-label class="settings-label">Bluetooth Status</ion-label>
+      <div>{{hardwareSoftwareAvailability.bluetoothStatus? 'ON' : 'OFF'}}</div>
+
+    </ion-item>
+  </div>
+  <div class="statistics-title">Covid 19 - Statistics</div>
   <div class="search-container">
-    <div class="statistics-title">Covid-19 Statistics</div>
     <div class="menu">
       <ion-card class="menu-card" *ngFor="let title of cardTitles; let i = index">
-        <div>{{title}}</div>
-        <ng2-odometer [number]="statisticsData[i]" [config]="config"></ng2-odometer>
+          <div class ="circle" [ngClass]="{
+            'total-cases': title === 'Confirmed Cases',
+            'recovered-cases ': title === 'Recovered Cases',
+            'active-cases': title === 'Active Cases',
+            'death-cases': title === 'Deaths'
+          }"> <ng2-odometer [number]="statisticsData[i]" [config]="config"></ng2-odometer>
+          </div>        
+        <div class="card-title" [ngClass]="{
+          'total-cases-title': title === 'Confirmed Cases',
+          'recovered-cases-title': title === 'Recovered Cases',
+          'active-cases-title': title === 'Active Cases',
+          'death-cases-title': title === 'Deaths'
+        }">{{title}}</div>
       </ion-card>
     </div>
   </div>
-  <ion-footer class="footer-container" lines="none">
-    <ion-item lines="none" class="settings-first-item">
-      <ion-label class="services-label">Device Settings</ion-label>
-      <div class="device-setting-title" (click)="onManageSettings()">Manage Settings</div>
-    </ion-item>
-    <div class="bottom-border"></div>
-    <ion-item lines="none" class="settings-items">
-      <ion-label class="services-label">Location</ion-label>
-      <ion-toggle class="toggle-icon toggle-inner" [(ngModel)]="hardwareSoftwareAvailability.locationStatus" checked="false">
-      </ion-toggle>
-    </ion-item>
-    <div class="bottom-border"></div>
-    <ion-item lines="none" class="settings-items">
-      <ion-label class="services-label">Bluetooth</ion-label>
-      <ion-toggle class="toggle-icon toggle-inner" [(ngModel)]="hardwareSoftwareAvailability.bluetoothStatus"></ion-toggle>
-    </ion-item>
-  </ion-footer>
+  
 </ion-content>

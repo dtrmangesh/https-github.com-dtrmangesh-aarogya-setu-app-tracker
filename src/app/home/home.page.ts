@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { DiagnosticService } from '../services/diagnostic.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { Market } from '@ionic-native/market/ngx';
 import { AppAvailabilityService } from '../services/app-availability.service';
 import {  HardwareSoftwareAvailability } from '../interface/hardware.interface';
 import { FirebaseService } from '../services/firebase.service';
@@ -31,26 +31,16 @@ export class HomePage {
   userData: any;
   constructor(private diagnostic: DiagnosticService,
     private readonly router: Router,
-    private openNativeSettings: OpenNativeSettings,
+    private market: Market,
     private appAvailable: AppAvailabilityService,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private statisticService: CoronaStatisticsService) {
   }
 
-  cardTitles = ['Confirmed cases', 'Recovered cases', 'Deceased cases'];
-  sliderImages= ['assets/images/cover_mouth_sneeze.png',
-  'assets/images/wash_hands_2.png',
-  'assets/images/social_distance.png',
-  'assets/images/stay_home.png']
+  cardTitles = ['Confirmed Cases','Active Cases','Recovered Cases', 'Deaths'];
   userName:string;
 
-  sliderOpts = {
-    autoplay: true,
-    zoom: {
-      maxRatio: 5
-    }
-  };
 
   async ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
@@ -67,6 +57,9 @@ export class HomePage {
             this.statisticsData.push(value.value);
         }
     }
+    this.statisticsData.splice(1,0,this.statisticsData[0] - this.statisticsData[1]);
+    console.log('>>>>>>>>>>>>>>>>>>>>>',this.statisticsData);
+
 
     });
     this.hardwareSoftwareAvailability.bluetoothStatus =  await  this.diagnostic.checkBluetoothAvailability();
@@ -84,7 +77,7 @@ export class HomePage {
     this.router.navigate(['/login']);
   }
 
-  onManageSettings() {
-    this.openNativeSettings.open('settings');
+  openPlayStore() {
+    this.market.open('nic.goi.aarogyasetu');
   }
 }
