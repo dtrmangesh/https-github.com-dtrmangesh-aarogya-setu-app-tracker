@@ -13,12 +13,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DiagnosticService } from './services/diagnostic.service';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
-import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { AppAvailability } from '@ionic-native/app-availability/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {config} from '../environments/environment'
+import { Market } from '@ionic-native/market/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -31,9 +31,9 @@ import {config} from '../environments/environment'
     SplashScreen,
     Diagnostic,
     DiagnosticService,
-    OpenNativeSettings,
     AppAvailability,
     AngularFirestore,
+    Market,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
