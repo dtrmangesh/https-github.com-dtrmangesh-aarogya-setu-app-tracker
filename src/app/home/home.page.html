@@ -20,7 +20,6 @@
   <div class="device-settings-container" no-lines>
     <ion-item lines="none" class="settings-items">
       <ion-label class="settings-label">Location</ion-label>
-      <div></div>
         <div *ngIf="hardwareSoftwareAvailability.locationStatus">ON</div>
         <div *ngIf="!hardwareSoftwareAvailability.locationStatus">OFF</div>
     </ion-item>
@@ -32,9 +31,6 @@
     </ion-item>
   </div>
   <div class="statistics-title">Covid 19 - Stats</div>
-  <div>
-    
-  </div>
   <div class="search-container">
     <div class="menu">
       <ion-card class="menu-card" *ngFor="let title of cardTitles; let i = index">
