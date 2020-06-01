@@ -10,8 +10,8 @@ export class DiagnosticService {
 
   async checkGPSAvailability() {
     let checkGPSService;
-    this.diagnostic.requestLocationAuthorization();
-    await this.diagnostic.isLocationAvailable().then(state => {
+    this.diagnostic.requestBluetoothAuthorization();
+    await this.diagnostic.isLocationEnabled().then(state => {
       if (state) {
         checkGPSService = true;
         console.log(state, 'available')
