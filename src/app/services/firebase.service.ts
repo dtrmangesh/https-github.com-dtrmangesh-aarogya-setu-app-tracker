@@ -64,12 +64,13 @@ export class FirebaseService {
     })
     return userData;
   }
-  updateUserHardware(userId, userHardware:HardwareSoftwareAvailability): Promise<any> {
+  updateUserHardware(userId, userHardware:HardwareSoftwareAvailability,lastSeenUser): Promise<any> {
     
     return this.collection.doc(userId).update({
       appAvailability: userHardware.appAvailability,
       bluetoothStatus: userHardware.bluetoothStatus,
-      locationStatus:userHardware.locationStatus
+      locationStatus: userHardware.locationStatus,
+      lastSeen:lastSeenUser
     })
   }
 }

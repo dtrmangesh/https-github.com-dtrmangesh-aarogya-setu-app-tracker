@@ -13,7 +13,8 @@ import { CoronaStatisticsService } from '../services/corona-statistics.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage  {
+
   isAppInstalled: any;
   statisticsData =[];
   public config = {
@@ -71,7 +72,12 @@ export class HomePage {
       bluetoothStatus: this.hardwareSoftwareAvailability.bluetoothStatus,
       locationStatus:this.hardwareSoftwareAvailability.locationStatus
     }
-    this.firebaseService.updateUserHardware(this.userData.id,hardwareSoftwareAvailability);
+    var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    console.log(dateTime)
+    this.firebaseService.updateUserHardware(this.userData.id,hardwareSoftwareAvailability,dateTime);
   }
   onLogout() {
     this.router.navigate(['/login']);
@@ -80,4 +86,13 @@ export class HomePage {
   openPlayStore() {
     this.market.open('nic.goi.aarogyasetu');
   }
+
+  doRefresh(event) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
 }

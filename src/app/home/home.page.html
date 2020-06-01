@@ -11,6 +11,9 @@
 </ion-header>
 
 <ion-content class="page">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-item *ngIf="!hardwareSoftwareAvailability.appAvailability" lines="none" class="top-msg">
     <div class="top-msg-styles">  Dear {{userName}}, please install and use
       <span class="app-name-link" (click)="openPlayStore()">
