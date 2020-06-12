@@ -17,6 +17,7 @@ import { AppAvailability } from '@ionic-native/app-availability/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IonicStorageModule } from '@ionic/storage';
 import {config} from '../environments/environment'
 import { Market } from '@ionic-native/market/ngx';
 @NgModule({
@@ -25,6 +26,7 @@ import { Market } from '@ionic-native/market/ngx';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,

@@ -5,8 +5,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
-import {FirebaseService} from '../services/firebase.service'
-import { Platform, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { FirebaseService } from '../services/firebase.service'
+import { Platform, ToastController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +25,20 @@ export class LoginPage implements OnInit {
   userCollection;
   constructor(private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly firebase :FirebaseService,
+    private readonly firebase: FirebaseService,
     public platform: Platform,
     private toastController: ToastController,
-    ) { }
+    private menuCtrl: MenuController,
+    private storage: Storage,
+  ) {
+  }
 
-   ngOnInit() {
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+  ngOnInit() {
     this.initializeLoginForm();
-    this.userCollection= this.firebase.readDatabse().valueChanges();
+    this.userCollection = this.firebase.readDatabse().valueChanges();
   }
 
   initializeLoginForm() {
@@ -70,22 +77,23 @@ export class LoginPage implements OnInit {
   checkUser(userName, password) {
     this.userCollection.subscribe( (res: any) => {
       res.forEach(element => {
-     if (element.email === userName && element.password === password) {
-       this.userData = element;
-     }
-    });
-
-    if (this.userData) {
-      const navigationExtras: NavigationExtras = {
-        queryParams: {
-          userData: JSON.stringify(this.userData)
+        if (element.email === userName && element.password === password) {
+          this.userData = element;        
+          this.storage.set('userData', this.userData )
         }
-       };
-       this.router.navigate(['/home'],navigationExtras);
-    } else {
-      console.log('Invalid');
-      this.presentToast('Invalid Credentials');
-    }
+      });
+
+      if (this.userData) {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            userData: JSON.stringify(this.userData)
+          }
+        };
+        this.router.navigate(['/home'],navigationExtras);
+      } else {
+        console.log('Invalid');
+        this.presentToast('Invalid Credentials');
+      }
     })
   }
 
