@@ -76,7 +76,7 @@ export class UpdatePasswordPage implements OnInit {
     if(oldPassword === this.userData.password){
       this.firebaseService.updateUserPassword(this.userData.id, newPassword);
       this.presentToast('Updated Password', 'success');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }else{
       this.presentToast('Invalid Password', 'danger');
 
