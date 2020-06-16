@@ -50,11 +50,11 @@ export class FirebaseService {
   }
   
   async getUser(userName) {
-    
+
     var userData;
     var userCollection =  this.firestore.collection('user').valueChanges();
-  
-      userCollection.subscribe( async (res: any) => {
+
+    userCollection.subscribe( async (res: any) => {
          res.forEach(element => {
         if (element.name == userName) {
           console.log(element);
@@ -73,4 +73,9 @@ export class FirebaseService {
       lastSeen:lastSeenUser
     })
   }
+
+  updateUserPassword(id, newPassword): Promise<any> {
+    return this.collection.doc(id).update({
+      password: newPassword
+    })}
 }

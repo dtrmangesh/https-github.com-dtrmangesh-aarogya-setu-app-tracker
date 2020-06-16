@@ -6,6 +6,7 @@ import { AppAvailabilityService } from '../services/app-availability.service';
 import {  HardwareSoftwareAvailability } from '../interface/hardware.interface';
 import { FirebaseService } from '../services/firebase.service';
 import { CoronaStatisticsService } from '../services/corona-statistics.service';
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -36,7 +37,9 @@ export class HomePage  {
     private appAvailable: AppAvailabilityService,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private statisticService: CoronaStatisticsService) {
+    private statisticService: CoronaStatisticsService,
+    private  menuCtrl: MenuController,) {
+      this.menuCtrl.enable(true);
   }
 
   cardTitles = ['Confirmed Cases','Active Cases','Recovered Cases', 'Deaths'];
@@ -47,11 +50,11 @@ export class HomePage  {
     this.route.queryParams.subscribe(params => {
       if (params && params.userData) {
         this.userData = JSON.parse(params.userData);
+        console.log('########', this.userData)
         this.userName = this.userData.name
       }
     });
      await this.statisticService.getData().subscribe( res => {
-      console.log('@@@@@@@@@@@@@', res);
       for(const key in res) {
         if(res.hasOwnProperty(key)) {
             const value = res[key];
@@ -59,9 +62,6 @@ export class HomePage  {
         }
     }
     this.statisticsData.splice(1,0,this.statisticsData[0] - this.statisticsData[1]);
-    console.log('>>>>>>>>>>>>>>>>>>>>>',this.statisticsData);
-
-
     });
     this.hardwareSoftwareAvailability.bluetoothStatus =  await  this.diagnostic.checkBluetoothAvailability();
     this.hardwareSoftwareAvailability.locationStatus = await this.diagnostic.checkGPSAvailability();
@@ -80,6 +80,7 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
     this.firebaseService.updateUserHardware(this.userData.id,hardwareSoftwareAvailability,dateTime);
   }
   onLogout() {
+    this.menuCtrl.enable(false);
     this.router.navigate(['/login']);
   }
 

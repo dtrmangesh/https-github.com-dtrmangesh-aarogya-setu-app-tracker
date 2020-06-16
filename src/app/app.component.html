@@ -1,3 +1,30 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
+    <ion-header class="menu-bar">
+      <ion-toolbar class="toolbar">
+        <ion-title class="title">Menu</ion-title>
+          <ion-icon class="close-icon" (click)="closeMenu()" name="arrow-back-outline"></ion-icon>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div *ngFor="let page of pages">
+        <ion-item button *ngIf="page.children?.length >0" (click)="page.open = !page.open" [class.active-parnet]="page.open" detail=false>
+          <ion-icon class="all-icon" slot="end" name="arrow-forward" *ngIf="!page.open"></ion-icon>
+          <ion-icon class="all-icon" slot="end" name="arrow-down" *ngIf="page.open"></ion-icon>
+          <ion-label>{{page.title}}</ion-label>
+        </ion-item>
+        <ion-list *ngIf="page.open">
+          <ion-menu-toggle>
+            <ion-item *ngFor="let subPage of page.children" [routerLink]="subPage.url" routerDirection="root" routerLinkActive="active" detail=false>
+              <ion-icon class="all-icon" slot="end" [name]="subPage.icon"></ion-icon>
+              <ion-label>
+                {{ subPage.title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="menu-content" main></ion-router-outlet>
 </ion-app>
