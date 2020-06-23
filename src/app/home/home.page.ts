@@ -42,7 +42,7 @@ export class HomePage  {
       this.menuCtrl.enable(true);
   }
 
-  cardTitles = ['Confirmed Cases','Active Cases','Recovered Cases', 'Deaths'];
+  cardTitles = ['Confirmed Cases','Active Cases','Recovered Cases', 'Deceased Cases'];
   userName:string;
 
 
