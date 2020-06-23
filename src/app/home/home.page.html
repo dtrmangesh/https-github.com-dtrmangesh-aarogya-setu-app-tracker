@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button class="menu-icon" ></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title">
+    <text class="title">
       Welcome {{userName}}
-    </ion-title>
+    </text>
     <ion-buttons slot="end" (click)="onLogout()">
       <ion-img class="logout-icon" src="assets/images/logout_6.png">
       </ion-img>
@@ -43,14 +43,14 @@
             'total-cases': title === 'Confirmed Cases',
             'recovered-cases ': title === 'Recovered Cases',
             'active-cases': title === 'Active Cases',
-            'death-cases': title === 'Deaths'
+            'death-cases': title === 'Deceased Cases'
           }"> <ng2-odometer [number]="statisticsData[i]" [config]="config"></ng2-odometer>
           </div>        
         <div class="card-title" [ngClass]="{
           'total-cases-title': title === 'Confirmed Cases',
           'recovered-cases-title': title === 'Recovered Cases',
           'active-cases-title': title === 'Active Cases',
-          'death-cases-title': title === 'Deaths'
+          'death-cases-title': title === 'Deceased Cases'
         }">{{title}}</div>
       </ion-card>
     </div>
