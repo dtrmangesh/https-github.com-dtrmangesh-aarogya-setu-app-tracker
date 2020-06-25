@@ -2,9 +2,13 @@
   <ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
     <ion-header class="menu-bar">
       <ion-toolbar class="toolbar">
-        <ion-title class="title">Menu</ion-title>
+        <ion-buttons slot="start">
           <ion-icon class="close-icon" (click)="closeMenu()" name="arrow-back-outline"></ion-icon>
-      </ion-toolbar>
+        </ion-buttons>
+        <text class="title">
+          Menu
+        </text>
+    </ion-toolbar>
     </ion-header>
     <ion-content>
       <div *ngFor="let page of pages">
