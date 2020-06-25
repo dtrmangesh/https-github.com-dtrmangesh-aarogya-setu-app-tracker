@@ -50,7 +50,6 @@ export class HomePage  {
     this.route.queryParams.subscribe(params => {
       if (params && params.userData) {
         this.userData = JSON.parse(params.userData);
-        console.log('########', this.userData)
         this.userName = this.userData.name
       }
     });
@@ -78,10 +77,6 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
     var dateTime = date + ' ' + time;
     console.log(dateTime)
     this.firebaseService.updateUserHardware(this.userData.id,hardwareSoftwareAvailability,dateTime);
-  }
-  onLogout() {
-    this.menuCtrl.enable(false);
-    this.router.navigate(['/login']);
   }
 
   openPlayStore() {
