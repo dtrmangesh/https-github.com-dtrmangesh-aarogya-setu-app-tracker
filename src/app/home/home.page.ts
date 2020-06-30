@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { DiagnosticService } from '../services/diagnostic.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Market } from '@ionic-native/market/ngx';
+import { Storage } from '@ionic/storage';
+import { MenuController } from '@ionic/angular';
 import { AppAvailabilityService } from '../services/app-availability.service';
 import {  HardwareSoftwareAvailability } from '../interface/hardware.interface';
 import { FirebaseService } from '../services/firebase.service';
 import { CoronaStatisticsService } from '../services/corona-statistics.service';
-import { MenuController } from '@ionic/angular';
-
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -38,7 +37,8 @@ export class HomePage  {
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private statisticService: CoronaStatisticsService,
-    private  menuCtrl: MenuController,) {
+    private  menuCtrl: MenuController,
+    private storage: Storage,) {
       this.menuCtrl.enable(true);
   }
 
@@ -47,11 +47,10 @@ export class HomePage  {
 
 
   async ionViewWillEnter() {
-    this.route.queryParams.subscribe(params => {
-      if (params && params.userData) {
-        this.userData = JSON.parse(params.userData);
-        this.userName = this.userData.name
-      }
+    this.storage.get('userData').then((val) => {
+      this.userData = val;
+      console.log('userData', this.userData);
+      this.userName = this.userData.name
     });
      await this.statisticService.getData().subscribe( res => {
       for(const key in res) {
