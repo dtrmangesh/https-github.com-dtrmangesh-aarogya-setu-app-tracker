@@ -1,0 +1,30 @@
+<ion-content class="modal-page">
+    <div class="close-button">
+        <ion-icon class="close-icon" (click)="dismiss()" name="close-outline"></ion-icon>
+    </div>
+    <p class="title">
+        When will you be in the office?
+    </p>
+    <div class="card-container">
+        <div class="menu">
+            <ion-card class="menu-card" *ngFor="let card of cardData" (click)="cardTapped(card.day)" [ngClass]="{
+                'next-week-card': card.day === 'Next Week'|| card.day === 'Previous Week',
+                'selected-card': card.selectedSeat}">
+                <div class="card-title" [ngClass]="{
+                    'next-week-title': card.day === 'Next Week' || card.day === 'Previous Week'}">{{card.day}}</div>
+                    <div>
+                        <ion-icon class="arrow-icon" [name]="card.icon" *ngIf="card.day === 'Next Week' || card.day === 'Previous Week'"></ion-icon>
+                    </div>
+                <div class="card-date">{{card.month}}</div>
+                <div class="card-seats">{{card.seats}}</div>
+                <div class="card-spots">{{card.spots}}</div>
+            </ion-card>
+        </div>
+    </div>
+    <p class="title">
+       How does this works?
+    </p>
+    <p class="sub-title">
+        Select and confirm any day you'd like to spend at the office.
+    </p>
+</ion-content>

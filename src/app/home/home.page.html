@@ -28,7 +28,12 @@
     <ion-item lines="none" class="settings-items">
       <ion-label class="settings-label">Bluetooth Status</ion-label>
       <div>{{hardwareSoftwareAvailability.bluetoothStatus? 'ON' : 'OFF'}}</div>
-
+    </ion-item>
+  </div>
+  <div class="office-container" no-lines>
+    <ion-item lines="none" (click)="openWeekModal()">
+      <ion-icon class="calendar-icon" name="calendar-outline"></ion-icon>
+      <ion-label class="office-label" no-padding>Coming to the office?</ion-label>
     </ion-item>
   </div>
   <div class="statistics-title">Covid 19 - Statistics(India)</div>
