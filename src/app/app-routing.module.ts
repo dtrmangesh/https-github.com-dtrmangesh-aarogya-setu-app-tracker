@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'update-password',
     loadChildren: () => import('./update-password/update-password.module').then( m => m.UpdatePasswordPageModule)
   },
+  {
+    path: 'return-to-office',
+    loadChildren: () => import('./modals/return-to-office/return-to-office.module').then( m => m.ReturnToOfficePageModule)
+  },
 ];
 
 @NgModule({

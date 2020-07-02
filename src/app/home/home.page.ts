@@ -4,10 +4,13 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { Market } from '@ionic-native/market/ngx';
 import { Storage } from '@ionic/storage';
 import { MenuController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AppAvailabilityService } from '../services/app-availability.service';
 import {  HardwareSoftwareAvailability } from '../interface/hardware.interface';
 import { FirebaseService } from '../services/firebase.service';
 import { CoronaStatisticsService } from '../services/corona-statistics.service';
+import { ReturnToOfficePage } from '../modals/return-to-office/return-to-office.page';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -38,7 +41,8 @@ export class HomePage  {
     private route: ActivatedRoute,
     private statisticService: CoronaStatisticsService,
     private  menuCtrl: MenuController,
-    private storage: Storage,) {
+    private storage: Storage,
+    public modalController: ModalController) {
       this.menuCtrl.enable(true);
   }
 
@@ -89,5 +93,12 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
       event.target.complete();
     }, 2000);
   }
+
+  async openWeekModal() {
+    const modal = await this.modalController.create({
+      component: ReturnToOfficePage,
+    });
+    return await modal.present();
+    }
 
 }

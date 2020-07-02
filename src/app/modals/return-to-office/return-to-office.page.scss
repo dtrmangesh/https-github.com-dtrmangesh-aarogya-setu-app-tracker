@@ -1,0 +1,129 @@
+.modal-page {
+    --background: #f2f2f2;
+}
+.close-icon {
+    height: 50px;
+    width: 35px;
+    color: var(--color-blue);
+}
+
+.close-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.title {
+    padding-bottom: 20px;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--color-blue);
+    padding-left: 30px;
+}
+
+.sub-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--color-blue);
+    padding-left: 30px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.menu {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}
+
+.menu-card {
+    position: relative;
+    margin: 10px;
+    max-width: 190px;
+    max-height: 130px;
+    align-self: center;
+    justify-self: center;
+    background-color: #fff;
+    width: 173px;
+    height: 126px;
+    padding: 10px 0 10px 24px;
+    font-family: "Lato", sans-serif;
+    box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 375px) {
+    .menu-card {
+        width: 150px;
+        height: 126px;
+    }
+}
+
+.card-title {
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+.card-date {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.card-seats {
+    font-size: 25px;
+    margin-top: 4px;
+}
+
+.card-spots {
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+.selected-card{
+    background:#1a75ff;
+    color: white;
+    position: relative;
+    margin: 10px;
+    max-width: 190px;
+    max-height: 130px;
+    align-self: center;
+    justify-self: center;
+    width: 173px;
+    height: 126px;
+    padding: 10px 0 10px 24px;
+    box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.25);
+  }
+
+.next-week-card {
+    background-color: var(--color-blue);
+    color: white;
+    position: relative;
+    margin: 10px;
+    max-width: 190px;
+    max-height: 130px;
+    align-self: center;
+    justify-self: center;
+    width: 173px;
+    height: 126px;
+    padding: 10px 0 10px 24px;
+    box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.25);
+}
+.next-week-title {
+    font-family: "Lato", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+.arrow-icon {
+    height: 20px;
+    width: 20px;
+    color: white;
+}
