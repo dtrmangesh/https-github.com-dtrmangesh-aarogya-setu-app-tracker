@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
+import { WeekDatesService } from 'src/app/services/week-dates.service';
 
 @Component({
   selector: 'app-return-to-office',
@@ -9,110 +10,83 @@ import { ModalController, AlertController } from '@ionic/angular';
 export class ReturnToOfficePage {
   counter = 0;
   cardData = []
+  updatedCurrentWeekData = [];
+  updatedNextWeekData = [];
+  currentWeek;
+  nextWeek;
 
-  currentWeekData = [
-    {
-      day: 'Monday',
-      month: 'July 1',
-      seats: '60',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Tuesday',
-      month: 'July 2',
-      seats: '50',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Wednesday',
-      month: 'July 3',
-      seats: 'Full',
-      spots: '',
-      selectedSeat: false
-
-    },
-    {
-      day: 'Thursday',
-      month: 'July 4',
-      seats: '60',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Friday',
-      month: 'July 4',
-      seats: '60',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Next Week',
-      icon: 'arrow-forward-outline',
-      nextWeek: true,
-      selectedSeat: false
-    },
-  ]
-  
-  nextWeekData = [
-    {
-      day: 'Previous Week',
-      icon: 'arrow-back-outline',
-      previousWeek: true,
-      selectedSeat: false
-    },
-    {
-      day: 'Monday',
-      month: 'July 7',
-      seats: '60',
-      spots: 'Spots left',
-      selectedSeat: false
-
-    },
-    {
-      day: 'Tuesday',
-      month: 'July 8',
-      seats: '40',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Wednesday',
-      month: 'July 9',
-      seats: '58',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-    {
-      day: 'Thursday',
-      month: 'July 10',
-      seats: 'Full',
-      spots: '',
-      selectedSeat: false
-    },
-    {
-      day: 'Friday',
-      month: 'July 11',
-      seats: '60',
-      spots: 'Spots left',
-      selectedSeat: false
-    },
-  ]
-  
   constructor(public modalController: ModalController,
-    public alertController: AlertController) {}
+    public alertController: AlertController,
+    private readonly datesService: WeekDatesService) {}
 
-  ionViewWillEnter() {
-  this.cardData = this.currentWeekData;
+   async ionViewWillEnter() {
+   await this.datesService.getWeekDates().subscribe(dates =>{
+     this.currentWeek = dates.currentWeekBookings;
+     this.nextWeek = dates.nextWeekBookings;
+     console.log('################', dates)
+    this.setCurrentWeekData();
+    this.setNextWeekData();
+  });
+  }
+
+  setCurrentWeekData() {
+    this.currentWeek.forEach(res =>{
+    const updatedWeek = this.getFormattedWeekObject(res);
+    this.updatedCurrentWeekData.push(updatedWeek)
+    });
+    this.updatedCurrentWeekData.push({
+      date: '',
+      day: 'Next Week',
+      month: '',
+      totalSeats: '',
+      availableSeats: '',
+      id:''
+    })
+    this.cardData = this.updatedCurrentWeekData;
+  }
+
+  setNextWeekData() {
+    this.nextWeek.forEach(res =>{
+      const updatedWeek = this.getFormattedWeekObject(res);
+      this.updatedNextWeekData.push(updatedWeek)
+    });
+    this.updatedNextWeekData.push({
+      date: '',
+      day: 'Previous Week',
+      month: '',
+      availableSeats: '',
+      id:''
+    })
+  }
+
+  getFormattedWeekObject(res) {
+    const formatedDate = res.id.split('-');
+    const dt = this.getFormattedWeekDate(formatedDate[0], formatedDate[1], formatedDate[2]).toDateString();
+    const tempDate = dt.split(' ');
+    const updatedObj ={
+      date: tempDate[2],
+      day: tempDate[0],
+      month: tempDate[1],
+      totalSeats: res.numberOfSeats,
+      availableSeats: res.numberOfSeats - res.totalBooked,
+      id:res.id
+    }
+    return updatedObj;
+  }
+
+  getFormattedWeekDate(year, week, dayNumber) {
+    const j1 = new Date(year, 0, 10, 12, 0, 0),
+    j2 = new Date(year, 0, 4, 12, 0, 0),
+    mon1 = j2.getTime() - j1.getDay() * 86400000;
+    return new Date(mon1 + ((week - 1) * 7 + (dayNumber - 1)) * 86400000);
   }
 
   cardTapped(day) {
     if(day ==='Next Week') {
-      this.cardData = this.nextWeekData
+      this.cardData= this.updatedNextWeekData
       this.counter = 0;
     } else if( day === 'Previous Week'){
-      this.cardData= this.currentWeekData
+      this.cardData= this.updatedCurrentWeekData
       this.counter = 0;
     }
     if(this.counter < 3) {
@@ -124,7 +98,7 @@ export class ReturnToOfficePage {
       if(day !=='Next Week' && day !=='Previous Week'){
         this.counter++
       }
-    } 
+    }
     else{
       this.alertController.create({
         cssClass: 'my-custom-class',
@@ -145,3 +119,4 @@ export class ReturnToOfficePage {
     });
   }
 }
+

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
-import {map,take}from "rxjs/operators"
+import {map,take}from 'rxjs/operators'
 import { Observable } from 'rxjs';
 import { async } from 'q';
 import {HardwareSoftwareAvailability} from '../interface/hardware.interface'
@@ -10,33 +10,30 @@ import {HardwareSoftwareAvailability} from '../interface/hardware.interface'
 })
 export class FirebaseService {
   private collection: AngularFirestoreCollection;
-  constructor(private firestore: AngularFirestore,public afDatabase: AngularFireDatabase) { 
-    this.collection = this.firestore.collection('user');
+  constructor(private firestore: AngularFirestore,public afDatabase: AngularFireDatabase) {
+    this.collection = this.firestore.collection('userInfo');
   }
- 
-  
   createEmployeeData(): Promise<void> {
     const id = this.firestore.createId();
-  
-    return this.firestore.doc(`user/${id}`).set({
+    return this.firestore.doc(`userInfo/${id}`).set({
       appAvailability:false,
       bluetoothStatus:true,
       contactNo:7448163113,
       devicePlatform:
-      "android",
+      'android',
       email:
-      "mdatar@gmail.com",
+      'mdatar@gmail.com',
       employeeId:
-      "MOBPUN-98",
+      'MOBPUN-98',
       locationStatus:
       false,
       name:
-        "mangesh",
+        'mangesh',
       id:id
     });
   }
   readDatabse() {
-    return this.firestore.collection('user');
+    return this.firestore.collection('userInfo');
   }
   readSingleDatabse(id: string): Observable<any> {
     return this.collection.doc(id).valueChanges().pipe(
@@ -48,15 +45,14 @@ export class FirebaseService {
       })
     )
   }
-  
-  async getUser(userName) {
+async getUser(userName) {
 
-    var userData;
-    var userCollection =  this.firestore.collection('user').valueChanges();
+    let userData;
+    const userCollection =  this.firestore.collection('userInfo').valueChanges();
 
     userCollection.subscribe( async (res: any) => {
          res.forEach(element => {
-        if (element.name == userName) {
+        if (element.name === userName) {
           console.log(element);
           userData = element;
         }
@@ -65,7 +61,6 @@ export class FirebaseService {
     return userData;
   }
   updateUserHardware(userId, userHardware:HardwareSoftwareAvailability,lastSeenUser): Promise<any> {
-    
     return this.collection.doc(userId).update({
       appAvailability: userHardware.appAvailability,
       bluetoothStatus: userHardware.bluetoothStatus,

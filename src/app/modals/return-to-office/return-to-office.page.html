@@ -13,11 +13,14 @@
                 <div class="card-title" [ngClass]="{
                     'next-week-title': card.day === 'Next Week' || card.day === 'Previous Week'}">{{card.day}}</div>
                     <div>
-                        <ion-icon class="arrow-icon" [name]="card.icon" *ngIf="card.day === 'Next Week' || card.day === 'Previous Week'"></ion-icon>
+                        <ion-icon class="arrow-icon" name="arrow-forward-outline" *ngIf="card.day === 'Next Week'"></ion-icon>
+                        <ion-icon class="arrow-icon" name="arrow-back-outline" *ngIf="card.day === 'Previous Week'"></ion-icon>
                     </div>
-                <div class="card-date">{{card.month}}</div>
-                <div class="card-seats">{{card.seats}}</div>
-                <div class="card-spots">{{card.spots}}</div>
+                <div class="card-date">{{card.month}} {{card.date}}</div>
+                <div class="card-seats">{{card.totalSeats}}</div>
+                
+                <div class="card-spots" *ngIf="card.availableSeats">Seats Left: {{card.availableSeats}}</div>
+
             </ion-card>
         </div>
     </div>
